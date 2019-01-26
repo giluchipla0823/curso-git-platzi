@@ -1,0 +1,201 @@
+# git tag (Etiquetando confirmaciones)
+En este momento quizás ya quieras taggear o etiquetar los cambios. Para eso existe git tag, este simplemente solo va a agregar una etiqueta.
+Una cosa a destacar es que son ligeras o anotadas, las ligeras se crean con el nombre de la etiqueta, las anotadas son las que llevan además un mensaje usando -m podemos dejar un mensaje.
+Si queremos borrar una etiqueta debemos usar -d, si las queremos listar podemos usar -l y si las queremos renombrar usamos -f.
+Utilizando el Sha-1 podemos crear etiquetas anotadas haciendo referencia a commits viejos.
+
+
+# Git rebase
+Hace prácticamente lo mismo que merge, cambiamos la historia de nuestro proyecto sin crear bifurcaciones del proyecto. Es mejor usar merge
+Usar solo git rebase de manera local.
+
+- git rebase [branch]
+
+-i: de manera interactiva, nos abrira el editor que tengamos definido en la configuración de git.
+
+- Cuando se está en la consola se debe digitar primero los ":" y de esta manewra acceder a escribir
+
+- Git rebase básicamente genera una nueva linea de tiempo del proyecto, aún cuando se han tenido anteriormente
+  ramas creadas
+
+
+# git superlog
+git config --global alias.superlog "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+
+
+# git stash (Guardando cambios temporalmente)
+¿Qué tal si aún no estás listo para confirmar ningún cambio? Stash es un estado que tenemos como intermedio. Para esto debemos ir a alguna de nuestras ramas y usando el comando git stash que nos permite hacer cambios, pero no confirmarlos.
+
+- git stash: es otro de los limbos, como el staging area. Para agregar los cambios estos deben estar en el staging area.
+- git stash list: nos muestra la lista de stash que tengamos.
+- git stash drop stash@{numero}: nos permite borrar un stash.
+- git stash apply: aplicamos el último cambio
+
+# Cherry pick eligiendo commits selectivamente
+Si estás trabajando en una rama, pero de repente notas que hiciste un cambio en la rama que no debías, para esto podemos usar cherry pick. Este comando nos puede salvar la vida, ya que nos permite sacar cambios específicos de una rama y mezclarlos en otra.
+
+git cherry-pick [commit]
+
+- Tendría que crear una rama y en la rama ejecutar el comando para traer ese commit a la nueva rama y luego poder hacer merge
+
+# Cuenta de Github
+- username: @giluchipla0823
+- email: luiggiplasencia0823@gmail.com
+- password: Luiggielmejor1988
+
+#git clone/fork (Clonando repositorios remotos)
+Vamos a proceder a crear nuestro primer proyecto en GitHub.
+
+- Nuevo repositorio
+- Asigna un nombre a tu repositorio
+- Asigna una descripción a tu repositorio
+- Puedes adicionar un ““read me””
+- Crea el repositorio
+- En la parte derecha encuentras una opción que se llama clone or download si no es nuestra intención compartirlo.
+- Un fork va a clonar el proyecto y nos va a crear un nuevo proyecto en el GitHub.
+
+- el **fork **en github nos hace una copia del proyecto en nuestro perfil/repositorios para poder hacerle lo que queramos sin afectar el proyecto original.
+
+- git clone [https/ssh]: siempre es recomendable en lo que se puede de usar ssh(git@github.com…) en vez de usar https ya que la primera es mucho más segura.
+
+#Añadiendo una llave ssh a GitHub
+Si quieres mantener tu seguros dentro de GitHub es importante usar llaves ssh con el comando ssh-keygen -t rsa -b 4096 -C "email@email.com".
+
+- Hacer copy to clipboard
+pbcopy < ~/.ssh/id_rsa.pub
+
+- Ir al avatar del sitio de tu github y entrar en settings. Finalmente seleccionar la opción de claves ssh y crear tu llave ssh
+
+# git remote (Añadiendo un repositorio remoto a uno local)
+Tenemos que crear una conexión entre tu repositorio local y tu repositorio remoto para que puedas compartirlo con la comunidad. Para esto vamos a usar un nuevo comando que en este caso es git remote. Por convención lo nombramos “origin”. Para borrarlo podemos usar git remote remove y el nombre del repositorio.
+
+git remote add [origin] [SSH/HTTPS] Conecta un repositorio con nuestro equipo local.
+git remote -v Lista las conexiones existentes.
+git remote remove [origin] Elimina una conexión con algún repositorio.
+
+# Enlace de resumen del curso
+https://joaquinaraujo.github.io/git-github/
+
+# git pull/fetch (Trayendo cambios desde el repositorio remoto)
+Vamos a compartir nuestro código con el repositorio remoto. Antes de poder enviar cambios tengo que tener los mismos cambios en el repositorio remoto que en el repositorio local.
+Para traer los cambios del repositorios remoto vamos a usar el comando git fetch. Este comando recibe dos parámetros 1. desde donde y hacia donde van.
+Luego de traer los cambios, debemos mezclarlos con la rama que estamos usando en local. Para esto usamos git merge.
+
+2 formas de traer tus cambios de github a tu repo local:
+
+- git fetch: descarga los cambios a una rama generalmente llamada origin/master, seguido de esto tienes que fuisonar esa rama
+
+git fetch origin master 
+# origin= remoto | master= rama del remoto
+# ahora tienes una rama llamada origin/master
+# que pueedes ver con 'git branch -a'
+$ git merge origin/master
+# si obtienes un error usar la siguiente linea
+# git merge origin/master --allow-unrelated-histories
+
+- git pull: es como ejecutar los 2 pasos anteriores(fetch y merge) en uno solo
+
+# Enviar tags en comando push origin 
+git push origin master --tags
+
+# Explorando la plataforma de GitHub
+
+Watch
+
+- Podemos calificar los proyectos que hemos creado.
+- Podemos ver las estadísticas de nuestro proyecto.
+- También las personas que le han hecho fork.
+- Podemos proteger ciertas ramas del proyecto.
+
+Unwatch (Nos permite que nos lleguen notificaciones si hay cambios en el repositorio)
+
+Not watching (Se te notifica cuando participas o mencionas)
+
+Ignoring (Nunca ser notificado)
+
+Star (Asi como en facebook se vive a base de likes, aqui se vive a base de estrellas, cuanto mas estrellas mas valorado es ese proyecto, y a su misma vez tiene muchos forks)
+
+Fork (Indica la cantidad de gente que hizo copia de su repositorio para poderles enviar cambios)
+
+Podemos ver las estadísticas de nuestro proyecto en Insights
+
+contributors (Nos permite ver el avance de nuestro proyecto)
+traffic (Nos muestra el trafico de nuestro proyecto)
+punch card (Muestra los dias que a estado trabajando)
+network (Vemos el flujo de ramas)
+members (Nos muestra la gente que le a hecho fork a nuestro repositorio)
+dependents (Nos muestra si nuestro repositorio depende de otro, es decir de un super repositorio)
+
+‘‘LeonidasEsteban’’ Para proyectos complejos se puede hacer un “dependecia” de repositorios o sub repositorios. Es como un proyecto dentro de otro pero es muy raro usarlos y de preferencia yo solo recomiendo un solo reposotorio’.
+
+Settings:
+
+collaborators (Aqui se añade a mas gente para que colabore en este proyecto)
+
+branches (Podemos cambiar la rama principal, y proteger ramas)
+CONSEJO: Protege siempre la rama master (Una vez protegida ningun cambio va a ir directamente a master tenemos que pasar por cierto proceso para que un codigo vaya a master) (Este proceso lo vemos dentro del curso)
+
+pull request (Es una forma de tomar una rama alterna por ejemplo la rama RD y no mezclarla directamente con master. Si no enviar una solicitud de mezcla desde la rama RD a la master, asi alguien mas puede ver esa solicitud, algun colaborador, etc…Y se haga un code review)
+
+Webhooks (Es la forma de poderle agregar git code a otros servicios para que hagan un auto deploy)
+
+Integrations & servicies (Incluir otros servicios como amazon, y que pueden hacer uso de nuestro repositorio)
+
+Deploy keys (Son las llaves publicas ssh de tu servidor para poder hacer git pull desde el servidor, y tener tu código en producción.)
+
+Pull requests (Vemos una lista de pull requests)
+
+Issues (Son la forma en que manejamos nuestros problemas, bugs en github. Por ejemplo: hay un bug, este no va a ser reportado si no que lo que vamos a hacer es crear un issue comentando donde hay un problema, se hace de esta manera, ocurre en tal sistema operativo, etc…)
+
+Proyects (Nos aparece nuestros proyectos)
+
+Al crear un “issue” o un “pull request”, github te permite incluir etiquetas en los mismos. Entre las etiquetas que nos pueden interesar a los que estamos comenzando a usar la plataforma se encuentran “help wanted” y “good first issue”. Github anima a los desarrolladores a que marquen los “issue” y los “pull request” que son más aptos para los que inician en este mundo con estas etiquetas y adicionalmente se pide a la comunidad que den un apoyo especial para estos issue/pull request. ¿Quiéres comenzar a colaborar en un proyecto real en Github pero aún te sientes inseguro con tus conocimientos? Haz una búsqueda de estás etiquetas y encontrarás miles de oportunidades para hacer tu primer aporte.
+
+
+# GitHub Projects, el SCRUM de GitHub
+GitHub tiene unas herramientas increíbles para nuestros proyectos. Una de estas herramientas es el projects de GitHub, la cual nos da la posibilidad de tener un mayor control del desarrollo de nuestro proyecto.
+Aquí como en la metodología de SCRUM tenemos la posibilidad de saber qué tenemos pendiente por hacer, cuáles son las features que se encuentran en desarrollo, identificar los bugs que emergen de nuestro proyecto, y los features que debemos revisar.
+
+* Columnas Basicas en tu proyecto:
+
+TODO: Son las cosas por hacer.
+
+WIP: Work in Progress. En que estamos trabajando.
+
+Bugs: Cosas que hay que arreglar de manera prioritaria.
+
+Waiting for review: nos sirve para cuando trabajamos con los pulls requests, ya que se espera que alguien revise nustro codigo.
+
+Done: Cuando la tarea ha finalizado.
+
+# Creando un template para issues
+
+En GitHub puedes crear un template para los issues, basta con crear un archivo llamado issue_template.md y definir los lineamientos para reportar un issue, ahora al generar un nuevo issue se mostrará el nuevo template.
+Recuerda que los archivos .md por dentro contienen sintaxis markdown para dar estilos a tu texto, puedes usar este enlace https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf
+
+# Creando un template para Pull Request
+GitHub permite usar templates a la hora de generar Pull Request
+
+- Crear archivo llamado pull_request_template.md
+- Definir los lineamientos usando sintaxis markdown
+- Hacer commit
+
+
+# gitignore
+https://www.gitignore.io/
+
+# Issues y Milestones (Reportando y monitoreando errores eficientemente)
+Issues: Sirve para reportar un problema o sugerir algún cambio que para el repositorio.
+Milestones: Forma para agrupar Issues o Pull Request.
+
+Los MILESTONES: son tareas globales con fecha de inicio y final, los **ISSUES **son tareas específicas asignadas para miembros del equipo para cumplir ese hito.
+
+ejemplo:
+
+MILESTONE —> REMODELAR LA CASA, Inicia en febrero y entrega en marzo.
+
+ISSUES —>
+
+Miembro1 se encarga de pintar.
+Miembro2 se encarga de entregar el piso.
+
